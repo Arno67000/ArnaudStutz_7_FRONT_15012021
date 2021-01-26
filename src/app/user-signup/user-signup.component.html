@@ -1,0 +1,51 @@
+<div class="col-sm-6">
+    <h1>Créez votre compte utilisateur : </h1>
+    <hr>
+    
+    <form [formGroup]='userForm' (ngSubmit)='onSubmitForm()'>
+        <p class="text-danger">Tous les champs du formulaire sont obligatoires !!</p>
+        <div class="form-group">
+            <label for="pseudo">Pseudo : </label>
+            <input type="text" id="pseudo" class="form-control" formControlName='pseudo'>
+            <div id="emailHelp" class="form-text"><small>Choisissez un pseudo.</small></div>
+        </div>
+        <div class="form-group">  
+            <label for="firstName">Prénom : </label>
+            <input type="text" id="firstName" class="form-control" formControlName='firstName'>
+            <div id="emailHelp" class="form-text"><small>Entrez votre prénom.</small></div>
+        </div>  
+        <div class="form-group">
+            <label for="lastName">Nom :</label>
+            <input type="text" id="lastName" class="form-control" formControlName='lastName'> 
+            <div id="emailHelp" class="form-text"><small>Entrez votre nom.</small></div>  
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de passe :</label>
+            <input type="text" id="password" class="form-control" formControlName='password'
+                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$">
+            <div id="emailHelp" class="form-text">
+                <small>Votre mot-de-passe doit avoir entre 8 et 20 caractères, contenir au minimum une majuscule, une minuscule, un chiffre et un caractères spécial.</small>
+            </div>   
+        </div>
+        <div class="form-group">
+            <input type="checkbox" id="check" name="check" class="form-check-input" required formControlName='checked'>
+            <label for="check" class="form-check-label" style="font-size: 1rem;margin-left: 2.5rem;">J'ai pris connaissance et j'accepte les G.C.U</label>
+        </div> 
+        <button class="btn btn-primary" type="submit" [disabled]="userForm.invalid">S'inscrire</button>
+    </form>
+</div>
+<div class="col-sm-4" style="margin-left: 4.5rem;font-size: medium;">
+    <p>Veuillez prendre connaissance des Conditions Générales d'Utilisation avant de remplir le formulaire d'inscription :</p>
+    <hr>
+    <p style="text-decoration:underline">Conditions Générales d'Utilisation :</p>
+    <p style="font-size: 1rem;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mattis leo leo, non viverra lorem volutpat vel. Curabitur erat sapien, maximus quis turpis id, mattis consectetur lorem. Nam pretium consequat posuere. Aliquam 
+        erat volutpat. Vestibulum ac risus vel leo elementum faucibus. Maecenas ut eros et felis auctor aliquam. Aenean egestas sapien imperdiet nisi viverra, nec tincidunt mauris rutrum. Quisque ac arcu sit amet ipsum commodo 
+        accumsan vitae ut elit. Suspendisse porttitor ante velit, nec ultrices nulla posuere sed. Proin egestas euismod finibus. Mauris viverra massa ut cursus accumsan. Donec lobortis vulputate interdum. Donec vitae ante interdum, rutrum leo sed, pretium nisi.
+        Fusce tellus mauris, congue sed nibh eget, iaculis pharetra nibh. Nunc mauris nulla, viverra in urna vitae, scelerisque varius sapien. Sed eu ornare arcu. Aliquam a elementum nisl. Donec rutrum lacus faucibus massa tempor vulputate. Maecenas luctus sem 
+        dignissim eros pretium cursus. Vivamus varius pretium nunc. Praesent a est venenatis, fringilla neque nec, iaculis augue. Integer posuere mattis lectus vitae ornare. Praesent vitae tortor ut urna imperdiet suscipit.
+        Fusce ac hendrerit mauris, at suscipit diam. Sed ex lorem, rutrum a sapien id, vehicula lacinia justo. Nullam cursus leo vel risus vehicula tincidunt. Sed maximus lacinia tincidunt. Vivamus congue, magna non aliquet tempor, ipsum diam feugiat elit, et 
+        tincidunt turpis purus eget neque. Pellentesque vitae ullamcorper purus, quis auctor nunc.
+        Nunc mauris nulla, viverra in urna vitae, scelerisque varius sapien. Sed eu ornare arcu. Aliquam a elementum nisl. Donec rutrum lacus faucibus massa tempor vulputate. Maecenas luctus sem dignissim eros pretium cursus. Vivamus varius pretium nunc. 
+        Praesent a est venenatis, fringilla neque nec, iaculis augue. Integer posuere mattis lectus vitae ornare. Praesent vitae tortor ut urna imperdiet suscipit.
+    </p>      
+</div>

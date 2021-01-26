@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <div class="row" *ngIf="!user.isAuth">
+    <h1 style="text-align: center;">Hello! Connectez-vous SVP !</h1>
+  </div>
+  <div class="row" style="display: flex;justify-content: center;align-items: center;">
+    <div ngbDropdown class="d-inline-block" *ngIf="user.isAuth">
+      <button class="btn btn-primary btn-lg" id="dropdownForm1" ngbDropdownToggle>Ecrire qelque-chose</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="list-group" style="background-color: black;">
+        <form  class="form-group" [formGroup]='postForm' (ngSubmit)='onPost()'>
+          <label for="post" class="sr-only">Ecivez votre message</label>
+          <textarea name="post" id="post" col="70" rows="3" minlength="4" class="list-group-item" style="margin: auto;width: 30rem;" 
+                    placeholder="Ecivez votre message" formControlName='postTweet'></textarea>
+          <button class="btn btn-success" type="submit" style="margin: auto;" [disabled]="postForm.invalid">Poster</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" *ngIf="user.isAuth">
+
+    <div class="col col-sm-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Featured
+        </div>
+        <div class="panel-body">
+          <h5 class="panel-title">Special title treatment</h5>
+          <p>With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+        <div class="card-footer text-muted">
+          2 days ago
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-sm-8 list-group" style="padding: 0%;">
+      <div *ngFor='let tweet of tweets;let i = index'>
+        <h5 class="list-group-item  list-group-item-info">{{ tweet.user.pseudo }}</h5>
+        <div class="list-group-item">
+          <p>{{ tweet.content }}</p>
+          <small>Posté le : {{ tweet.date | date: 'dd/MM/yy  HH:mm'}}</small>
+        </div>
+        <div class="list-group-item" style="display: flex;justify-content: space-evenly;">
+          <div class="btn-group" role="group" aria-label="button-list" >
+            <button type="button" class="btn btn-danger" *ngIf="user.pseudo === 'admin'">Delete</button>
+            <button type="button" class="btn btn-danger" *ngIf="user.id === tweets[i].user.id" (click)="onDeleteTweet(i)">Supprimer</button>
+            <button type="button" class="btn btn-danger" *ngIf="user.id === tweets[i].user.id">Modifer</button>
+          </div>
+        </div>
+      </div>
+    </div> 
+
+  </div>
+</div>

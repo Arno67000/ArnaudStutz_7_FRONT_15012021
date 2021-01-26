@@ -1,0 +1,19 @@
+<div class="col-sm-8 col-sm-offset-2">
+    <h1>Mon Profil</h1>
+    <ul class="list-group">
+        <li class="list-group-item"><strong>Pseudo :</strong> {{ user.pseudo }}</li>
+        <li class="list-group-item"><strong>Prénom :</strong> {{ user.firstName }}</li>
+        <li class="list-group-item"><strong>Nom :</strong> {{ user.lastName }}</li>
+    </ul>
+    <a href="" class="row">Changer mon mot-de-passe !!</a>
+    <div class="row">
+        <button type="button" class="btn btn-danger" *ngIf="user.isAuth" (click)="onAskForDelete()">Supprimer mon compte</button>
+        <form class="formgroup" *ngIf="unsubscribe" [formGroup]='unsubscribeForm'>
+            <p class="form-text">Etes-vous sur de vouloir supprimer votre compte ?</p>
+            <label for="unsubscribePseudo" class="sr-only">Entrez votre pseudo pour la suppression du compte.</label>
+            <input type="text" placeholder="Entrez votre pseudo" id="unsubscribePseudo" 
+                formControlName='unsubscribePseudo' required [(ngModel)]="pseudoToKill">
+            <button class="btn btn-danger" [disabled]="pseudoToKill != user.pseudo" (click)="onDeleteAccount()">SUPPRIMER LE PROFIL !</button>
+        </form>
+    </div>
+</div>
