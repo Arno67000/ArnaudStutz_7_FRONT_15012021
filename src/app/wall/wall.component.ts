@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component,  OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { User } from '../models/User.model';
@@ -12,6 +12,7 @@ import { TweetService } from '../services/tweet.service';
   templateUrl: './wall.component.html',
   styleUrls: ['./wall.component.scss']
 })
+
 export class WallComponent implements OnInit, OnDestroy {
 
   userSubscription: Subscription;
@@ -21,10 +22,13 @@ export class WallComponent implements OnInit, OnDestroy {
     firstName: "",
     lastName: "",
     password: "",
+    role: 'guest',
     isAuth: false
   };
 
   postForm: FormGroup;
+  changeForm: FormGroup;
+  filterForm: FormGroup;
 
   tweets: Tweet[] = [
     {
@@ -35,6 +39,9 @@ export class WallComponent implements OnInit, OnDestroy {
   ];
 
   tweetSubscription: Subscription;
+
+  editMode: boolean = false;
+  filter: string = "Pas de filtre actif";
 
   constructor(private userService: UserService,
               private tweetService: TweetService,
@@ -50,15 +57,20 @@ export class WallComponent implements OnInit, OnDestroy {
     })
     this.tweetService.emitTweet();
 
+
     this.postForm = this.formBuilder.group({
       postTweet: ["", Validators.required]
-    })
-
+    });
+    this.changeForm = this.formBuilder.group({
+      changeTweet: ["", Validators.required]
+    });
+    this.filterForm = this.formBuilder.group({
+      filterPseudo: ["", Validators.required]
+    });
   };
 
-  ngOnInit(): void {
-    this.getAllTweets();
-  };
+  ngOnInit(): void {};
+  
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
     this.tweetSubscription.unsubscribe();
@@ -70,21 +82,61 @@ export class WallComponent implements OnInit, OnDestroy {
       content: formValue['postTweet'],
       user: this.user,
     };
-    this.tweetService.postTweet(tweet);
-    this.tweetService.emitTweet();    
-  }
-
-  getAllTweets() {
-    this.tweetService.getAll();
+    this.tweetService.postTweet(tweet);  
   }
 
   onDeleteTweet(i: number) {
-    const id = this.tweets[i].id;
-    if (id) {
-      this.tweetService.deleteTweet(id);
+    const tweetId = this.tweets[i].id;
+    if (tweetId) {
+      this.tweetService.deleteTweet(tweetId);
     } else {
       alert("ID du message introuvable... veuillez réessayer après avoir recharger la page.");
     }
   }
 
+  onChangeTweet(i: number) {
+    const formValue = this.changeForm.value;
+    const tweetId = this.tweets[i].id;
+    const tweet:Tweet = {
+      content: formValue['changeTweet'],
+      user: this.user,
+    }
+    if (tweetId) {
+      this.tweetService.modifyTweet(tweetId, tweet);
+    } else {
+      alert("ID du message introuvable... veuillez réessayer après avoir recharger la page.");
+    }
+    this.editMode = false;
+  };
+
+  onEditMode(i:number) {
+    this.editMode = true;
+    const tweetContent = this.tweets[i].content;
+    this.changeForm.setValue({changeTweet: tweetContent});
+  };
+
+  onExitEditMode() {
+    this.editMode = false;
+  };
+
+  onFilterMine() {
+    this.tweets = this.tweets.filter(tweet => tweet.user.id === this.user.id);
+    this.filter = "Filtre : Mes messages.";
+  };
+
+  onStopFilter() {
+    this.tweetService.emitTweet();
+    this.filter = "Pas de filtre actif";
+  };
+
+  onFilterByPseudo() {
+    const pseudo = this.filterForm.value['filterPseudo'];
+    this.tweets = this.tweets.filter(tweet => tweet.user.pseudo === pseudo);
+    this.filter = "Filtre : Messages de "+pseudo;
+    if (this.tweets.length === 0) {
+      alert("Le pseudo n'est pas attribué OU aucun message n'a été poster pas cet utilisateur. Essayez avec un autre pseudo !");
+      this.tweetService.emitTweet();
+      this.filter = "Pas de filtre actif";
+    }
+  };
 }

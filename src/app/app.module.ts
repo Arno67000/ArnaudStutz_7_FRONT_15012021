@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,8 @@ import { ProfilComponent } from './profil/profil.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './services/authGuard.service';
 import { TweetService } from './services/tweet.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { TweetService } from './services/tweet.service';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [
     UserService,

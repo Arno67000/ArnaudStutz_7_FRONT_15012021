@@ -32,9 +32,8 @@ export class UserSignupComponent implements OnInit {
       formValue['pseudo'],
       formValue['firstName'],
       formValue['lastName'],
-      formValue['password']
+      formValue['password'],
     );
-    console.log(newUser);
     this.userService.signupUser(newUser);
   }
   

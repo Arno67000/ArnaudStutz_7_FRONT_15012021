@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
     firstName: "",
     lastName: "",
     password: "",
+    role: 'guest',
     isAuth: false
   };
 
@@ -52,18 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onQuit() {
-    this.userSubscription.unsubscribe();
-    localStorage.clear();
-    this.user = {
-      pseudo: "Invité",
-      firstName: "",
-      lastName: "",
-      password: "",
-      id: '',
-      token: 'no',
-      isAuth: false
-    };
-    this.router.navigate(['/home']);
+    this.userService.logoutUser();
   }
 
   subscribeUser() {

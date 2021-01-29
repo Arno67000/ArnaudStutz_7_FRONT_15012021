@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { User } from '../models/User.model';
+import { TweetService } from './tweet.service';
 
 @Injectable()
 export class UserService {
@@ -12,20 +13,25 @@ export class UserService {
         firstName: "",
         lastName: "",
         password: "#####",
+        role: 'guest',
         isAuth: false
     };
-
-    headers: HttpHeaders;
-
-        
+   
     userSubject = new Subject<User>();
 
     constructor(private httpClient: HttpClient,
-                private routeur: Router) {
-                    const token = localStorage.getItem('token');
-                    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+ token);
+                private routeur: Router,
+                private tweetService: TweetService) {
+                    if(localStorage.getItem('token')) {
+                        this.getCurrentUser();
+                    }
                 }
 
+    getHeaders() {
+        const token = localStorage.getItem('token');
+        return new HttpHeaders().set('Authorization', 'Bearer '+ token);    
+    }
+    
     emitUser() {
         this.userSubject.next(this.user);
     }
@@ -46,53 +52,66 @@ export class UserService {
                 }
             )
     }
+
     loginUser(pseudo: string, password: string) {
         let newUser = {pseudo: pseudo, password: password}
         this.httpClient
             .post<User>('http://localhost:3000/user/login',newUser)
             .subscribe(
                 (obj: User) => {
-                    this.user.pseudo = obj.pseudo;
-                    this.user.firstName = atob(obj.firstName);
-                    this.user.lastName = atob(obj.lastName);
-                    this.user.id = obj.id;
+                    this.user = {
+                        ...obj,
+                        firstName: atob(obj.firstName),
+                        lastName: atob(obj.lastName),
+                        password : 'checked !',
+                        token: 'checked !',
+                        isAuth: true,
+                        role: obj.role
+                    }
                     if(obj.token) {
                         localStorage.setItem('token', obj.token);
-                        this.user.isAuth = true;
-                        this.user.password= "verified",
-                        this.user.token= "yes"
                     }
                     console.log(this.user);
                     this.emitUser();
+                    this.tweetService.getAll();
+                    this.routeur.navigate(['/home']);
                 },
                 (error: any) => {
-                    console.log(error);
-                    if(error.status === 404) {
-                        alert("Aucun compte utilisateur n'existe avec ce pseudo");
-                    } else if (error.status === 403 ) {
-                        alert("Mot de passe incorrect !!!");
-                    } else if (error.status === 429) {
-                        alert("Trop de tentatives de connections!! Réessayer dans 15 min !!")
-                    } else {
-                        alert( error );
-                    }
+                    alert(JSON.stringify(error.error.message));
                 }
             );
     }
-    deleteUser(id:string) {
-        const token = localStorage.getItem('token');
-        this.headers = new HttpHeaders().set('Authorization', 'Bearer '+ token);
+
+    logoutUser() {
+        localStorage.clear();
+        this.user = {
+            pseudo: "Invité",
+            firstName: "",
+            lastName: "",
+            password: "",
+            id: '',
+            role: 'guest',
+            token: 'no',
+            isAuth: false
+        };
+        this.emitUser();
+        this.routeur.navigate(['/home']);
+    };
+
+    deleteUser(userId:string) {
+        const headers = this.getHeaders();
         this.httpClient
-            .delete('http://localhost:3000/user/'+id, { headers: this.headers })
+            .delete('http://localhost:3000/user/'+userId, { headers: headers })
             .subscribe(
                 (obj: Object) => {
-                    console.log(obj);
+                    console.log(JSON.stringify(obj));
                     this.user = {
                         pseudo: "Invité",
                         firstName: "",
                         lastName: "",
                         password: "",
                         id: "",
+                        role:'guest',
                         token: "no",
                         isAuth: false
                     };
@@ -105,4 +124,45 @@ export class UserService {
                 }
             );
     }
+    
+    getCurrentUser() {
+        const headers = this.getHeaders();
+        this.httpClient
+            .get<User>('http://localhost:3000/user/', { headers: headers })
+            .subscribe(
+                (user) => {
+                    this.user = {
+                        ...user,
+                        firstName: atob(user.firstName),
+                        lastName: atob(user.lastName),
+                        password : 'checked !',
+                        token: 'checked !',
+                        role: user.role,
+                        isAuth: true
+                    };
+                    console.log(this.user);
+                    this.emitUser();
+                    this.tweetService.getAll();
+                    this.routeur.navigate(['/home']);
+                },
+                (error: any) => {
+                    console.log(error);
+                }
+            );
+    };
+
+    modifyUserPass(userId:string, currentPass:string, newPass:string) {
+        const headers = this.getHeaders();
+        this.httpClient
+            .put('http://localhost:3000/user/'+userId, {currentPass, newPass}, { headers: headers })
+            .subscribe(
+                () => { 
+                    alert('Votre mot-de-passe à bien été modifié !!!' );
+                    this.routeur.navigate(['/home']);
+                },
+                (error:any) => {
+                    alert(JSON.stringify(error.error.message));
+                }
+            );
+    };
 }

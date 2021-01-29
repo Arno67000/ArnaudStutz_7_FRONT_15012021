@@ -1,19 +1,26 @@
-<div class="container-fluid">
-  <nav class="navbar navbar-expand-lg navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-text h4" style="color: white;margin-right: 10%;font-weight: bold;">GROUPOMANIA</div>
-      <a routerLinkActive="active" routerLink="/" class="navbar-brand">HOME</a>
-      <a routerLinkActive="active" routerLink ="/profil" class="navbar-brand" *ngIf="user.isAuth">MON PROFIL</a>
-      <div class="navbar-right">
-        <div ngbDropdown class="d-inline-block">
+<div class="container-fluid" style="padding: 0%;">
+  <nav class="navbar navbar-expand-lg navbar-inverse" >
+    <div class="container-fluid" style="display: flex;align-items: center;justify-content: space-evenly;flex-wrap: wrap;padding: 0%;">
+      <div>
+        <img src="../assets/logo_nav_white.png" alt="logo groupomania" width="auto" height="45rem">
+      </div>
+      <div class="btn-group btn-group-lg" role="group">
+        <a routerLinkActive="active" routerLink="/" type="button" class="btn btn-primary" role="button" 
+          style="background-color: transparent;border-color: transparent;">HOME</a>
+        <button routerLink ="/profil" type="button" class="btn btn-primary" role="button" 
+                style="background-color: transparent;border-color: transparent;" [disabled]="!user.isAuth">Mon Profil</button>
+      </div>
+      <div>
+        <div ngbDropdown #loginDrop="ngbDropdown" class="d-inline-block">
           <button class="btn btn-lg btn-primary navbar-btn" id="dropdownForm1" ngbDropdownToggle>{{ user.pseudo }}</button>
-          <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="list-group" style="background-color: black;width: 20rem;">
-            <form class="px-10" [formGroup]='userForm' (ngSubmit)='onLogin()' *ngIf="!user.isAuth">
+          <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="list-group" style="background-color: black; left: -100%;margin: 0%;">
+            <form class="px-10" [formGroup]='userForm' (ngSubmit)='onLogin(); userForm.reset()' *ngIf="!user.isAuth">
               <label for="pseudoLogin" class="sr-only">Pseudo</label>
               <input type="text" class="form-control" id="pseudoLogin" placeholder="Pseudo" formControlName='pseudoLogin'>
               <label for="passwordLogin" class="sr-only">Password</label>
               <input type="password" class="form-control" id="passwordLogin" placeholder="Password" formControlName='passwordLogin'>
-              <button type="submit" class="btn btn-success" style="width: 100%;" *ngIf="!user.isAuth" [disabled]="userForm.invalid">Connection</button>
+              <button type="submit" class="btn btn-success" style="width: 100%;" *ngIf="!user.isAuth" 
+                      (click)="loginDrop.close()" [disabled]="userForm.invalid">Connection</button>
             </form>
             <button type="button" class="btn btn-primary" style="width: 100%;" *ngIf="user.isAuth" (click)="onQuit()">Déconnection</button>
             <a routerLink="/signup" class="btn btn-primary" style="width: 100%;" ngbDropdownItem *ngIf="!user.isAuth">Inscription</a>
