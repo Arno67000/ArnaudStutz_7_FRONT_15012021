@@ -65,15 +65,11 @@ export class TweetService {
     modifyTweet(tweetId:string, tweet:Tweet) {
         const headers = this.getHeaders();
         this.httpClient
-            .put('http://localhost:3000/tweets/'+tweetId, tweet, { headers: headers })
+            .put<Tweet>('http://localhost:3000/tweets/'+tweetId, tweet, { headers: headers })
             .subscribe(
-                () => {
+                (newTweet) => {
                     let x = this.tweets.findIndex(tweet => tweet.id === tweetId);
-                    const modifiedTweet:Tweet = {
-                        ...tweet,
-                        id: tweetId
-                    };
-                    this.tweets.splice(x,1,modifiedTweet);
+                    this.tweets.splice(x,1,newTweet);
                     this.emitTweet();
                 },
                 (error: any) => { console.log(error) }

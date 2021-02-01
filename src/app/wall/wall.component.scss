@@ -1,0 +1,70 @@
+.bgc-blk {
+    background-color: black;
+}
+.fullWidth {
+    width: 100%;
+}
+.margAuto{
+    margin: auto;
+}
+.margTop {
+    margin-top: 5%;
+}
+.nopadd{
+    padding: 0%;
+}
+
+.thumb-title {
+    background-color: #32506a;
+    color: #edf1f7;
+    margin: 1% 0 0 0;
+}
+.flexBlockV {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-outline {
+    background-color: white;
+    font-style: italic;
+    text-decoration: underline;
+    &:hover {
+        background-color: #edf1f7;
+        font-size: 1.3rem;
+    }
+}
+.btn-trash {
+    background-color: white;
+}
+.list-group-item {
+    border-top: none;
+}
+
+.fa-trash-alt {
+    font-size: 1.5rem;
+    &:hover{
+        font-size: 1.8rem;
+        color: red;
+    }
+}
+.panel-heading {
+    background-color: #080808;
+    color: white;
+    width: 100%;
+    margin: 0%;
+    padding: 8%;
+    border: none;
+}
+.panel-body {
+    padding: 8%;
+}
+.card-footer {
+    padding: 0 0 5% 8%;
+}
+.panel-default {
+    border: none;
+}
+
+.thumbnail p {
+    font-size: 1.8rem;
+}

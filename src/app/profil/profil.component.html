@@ -11,8 +11,7 @@
 
     <div ngbDropdown placement="bottom-left" #passDrop="ngbDropdown" class="d-block">
         <button class="btn btn-warning" id="dropdownPassForm" ngbDropdownToggle>Changer mon Mot-de-passe</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownPassForm" class="list-group" 
-        style="padding: 2%;width: 100%;border: 2px solid red;z-index: 100; background-color: white;">
+        <div ngbDropdownMenu aria-labelledby="dropdownPassForm" class="list-group dd-passForm">
             <form [formGroup]="passForm" (ngSubmit)="onChangePass()" class="form-group">
                 <p class="text-danger">Tous les champs du formulaire sont obligatoires !!</p>
                 <label for="currentPass">Votre Mot-de-passe actuel : </label>
@@ -25,8 +24,10 @@
                 <label for="newPass2">Confirmez votre nouveau Mot-de-passe : </label>
                 <input type="password" name="newPass2" class="form-control" id="newPass2"
                 pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$" formControlName="newPass2">
-                <button class="btn btn-success" type="submit" [disabled]="passForm.invalid">Valider</button>
-                <button class="btn btn-danger" type="button" (click)="passForm.reset();passDrop.close()">Annuler</button>
+                <div class="btn-group flexBlock">
+                    <button class="btn btn-success" type="submit" [disabled]="passForm.invalid">Valider</button>
+                    <button class="btn btn-danger" type="button" (click)="passForm.reset();passDrop.close()">Annuler</button>
+                </div>
             </form>
         </div>
     </div>
@@ -34,7 +35,7 @@
     <hr>
 
     <div class="row">
-        <button type="button" class="btn btn-danger" *ngIf="user.isAuth" (click)="onAskForDelete()">Supprimer mon compte</button>
+        <button type="button" class="btn btn-danger marg-1" *ngIf="user.isAuth" (click)="onAskForDelete()">Supprimer mon compte</button>
         <form class="formgroup" *ngIf="unsubscribe" [formGroup]='unsubscribeForm'>
             <p class="form-text">Etes-vous sur de vouloir supprimer votre compte ?</p>
             <label for="unsubscribePseudo" class="sr-only">Entrez votre pseudo pour la suppression du compte.</label>

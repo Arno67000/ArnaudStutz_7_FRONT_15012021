@@ -83,7 +83,7 @@ export class WallComponent implements OnInit, OnDestroy {
       user: this.user,
     };
     this.tweetService.postTweet(tweet);  
-  }
+  };
 
   onDeleteTweet(i: number) {
     const tweetId = this.tweets[i].id;
@@ -92,7 +92,21 @@ export class WallComponent implements OnInit, OnDestroy {
     } else {
       alert("ID du message introuvable... veuillez réessayer après avoir recharger la page.");
     }
-  }
+  };
+
+  onKillTweet(i:number) {
+    const tweetId = this.tweets[i].id;
+    const tweetUser = this.tweets[i].user;
+    const tweet:Tweet = {
+      content: "Le contenu de ce message à été supprimé par le modérateur du site pour non-respect des C.G.U .",
+      user: tweetUser
+    }
+    if (tweetId) {
+      this.tweetService.modifyTweet(tweetId, tweet);
+    } else {
+      alert("ID du message introuvable... veuillez réessayer après avoir recharger la page.");
+    }
+  };
 
   onChangeTweet(i: number) {
     const formValue = this.changeForm.value;
@@ -134,7 +148,7 @@ export class WallComponent implements OnInit, OnDestroy {
     this.tweets = this.tweets.filter(tweet => tweet.user.pseudo === pseudo);
     this.filter = "Filtre : Messages de "+pseudo;
     if (this.tweets.length === 0) {
-      alert("Le pseudo n'est pas attribué OU aucun message n'a été poster pas cet utilisateur. Essayez avec un autre pseudo !");
+      alert("Le pseudo n'est pas attribué OU aucun message n'a été posté par cet utilisateur. Essayez avec un autre pseudo !");
       this.tweetService.emitTweet();
       this.filter = "Pas de filtre actif";
     }
