@@ -1,0 +1,28 @@
+
+.flexblock {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.btn-transparent{
+    background-color: transparent;
+    border-color: transparent;
+}
+.dropdPanel{
+    background-color: #333333;
+    left: -100%;
+    margin: 0%;
+}
+
+.footer-dark {
+    background-color: #333333;
+    color: white;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.footer-link{
+    color: white;
+}

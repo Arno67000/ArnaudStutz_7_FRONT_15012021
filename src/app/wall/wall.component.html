@@ -1,4 +1,4 @@
-<div class="container" style="background-color: rgb(237, 241, 247);">
+<div class="container">
   <div class="row" *ngIf="!user.isAuth">
     <h1 style="text-align: center;">Hello! Connectez-vous SVP !</h1>
   </div>
@@ -17,7 +17,8 @@
             <button class="btn btn-xs btn-primary" type="button" (click)="onFilterMine()">Mes Posts</button>
             <form class="form-group flexBlockV margTop" [formGroup]="filterForm" (ngSubmit)="onFilterByPseudo();filterForm.reset()">
               <label for="filterPseudo">Entrez le pseudo d'un utilisateur :</label>
-              <input type="text" id="filterPseudo" name="filterPseudo" formControlName="filterPseudo" class="form-control fullWidth">
+              <input type="text" id="filterPseudo" name="filterPseudo" formControlName="filterPseudo" class="form-control fullWidth"
+                    aria-required="true">
               <button class="btn btn-xs btn-primary" type="submit" [disabled]="filterForm.invalid" >Filter</button>
             </form>
           </div>
@@ -31,12 +32,12 @@
 
     <div class="col col-sm-8 list-group nopadd">
       <div ngbDropdown #postDrop="ngbDropdown" placement="bottom-left" class="d-inline-block" *ngIf="user.isAuth">
-        <button class="btn btn-primary btn-lg" id="dropdownForm1" ngbDropdownToggle>Ecrire qelque-chose</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="list-group bgc-blk fullWidth">
+        <button class="btn btn-primary btn-lg" id="dropdownForm2" ngbDropdownToggle>Ecrire qelque-chose</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownForm2" class="list-group bgc-blk fullWidth">
           <form  class="form-group" [formGroup]='postForm' (ngSubmit)='onPost(); postForm.reset()'>
             <label for="post" class="sr-only">Ecivez votre message</label>
-            <textarea name="post" id="post" col="70" rows="3" minlength="4" class="list-group-item margAuto fullWidth" 
-                      placeholder="Ecivez votre message" formControlName='postTweet'></textarea>
+            <textarea name="post" id="post" col="70" rows="3" minlength="4" maxlength="250" class="list-group-item margAuto fullWidth" 
+                      placeholder="Ecivez votre message" formControlName='postTweet' aria-required="true"></textarea>
             <button class="btn btn-success margAuto" type="submit" (click)="postDrop.close()" [disabled]="postForm.invalid">Poster</button>
           </form>
         </div>
@@ -51,7 +52,7 @@
           <div *ngIf="editMode && user.id === tweets[i].user.id">
             <form class="form-group" [formGroup]='changeForm' (ngSubmit)='onChangeTweet(i)'>
               <label for="change{{i}}" class="sr-only">Modifier votre message</label>
-              <textarea name="change" id='change{{i}}' col="70" rows="3" minlength="4" maxlength="300" class="form-control margAuto fullWidth" 
+              <textarea name="change" id='change{{i}}' col="70" rows="3" minlength="4" maxlength="250" class="form-control margAuto fullWidth" 
                       placeholder="{{ tweet.content }}" formControlName='changeTweet'>TEXT</textarea>
             <button class="btn btn-success btn-sm" type="submit" [disabled]="changeForm.invalid">Poster</button>
             <button type="button" class="btn btn-sm btn-danger" (click)="onExitEditMode()">Annuler</button>
@@ -65,7 +66,7 @@
             (click)="onEditMode(i)">Modifier</button>
             <button type="button" class="btn btn-sm btn-outline" *ngIf="user.role === 'Moderateur' && tweets[i].user.role !== 'Moderateur'" 
                   (click)="onKillTweet(i)">Modérer</button>
-            <button type="button" class="btn btn-sm btn-trash" *ngIf="user.id === tweets[i].user.id" (click)="onDeleteTweet(i)"><i class="fas fa-trash-alt"></i></button>
+            <button type="button" class="btn btn-sm btn-trash" *ngIf="user.id === tweets[i].user.id" (click)="onDeleteTweet(i)" aria-label="supprimer le message"><i class="fas fa-trash-alt"></i></button>
           </div>
         </div>
       </div>

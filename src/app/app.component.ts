@@ -14,7 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   
   title = 'Groupomania';
   user: User = {
-    pseudo: "Invité",
+    pseudo: "Connection",
     firstName: "",
     lastName: "",
     password: "",

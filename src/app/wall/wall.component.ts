@@ -18,7 +18,7 @@ export class WallComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
 
   user: User = {
-    pseudo: "Invité",
+    pseudo: "Connection",
     firstName: "",
     lastName: "",
     password: "",

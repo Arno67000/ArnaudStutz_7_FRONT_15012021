@@ -9,7 +9,7 @@ import { TweetService } from './tweet.service';
 export class UserService {
 
     private user: User = {
-        pseudo: "Invité",
+        pseudo: "Connection",
         firstName: "",
         lastName: "",
         password: "#####",
@@ -61,8 +61,8 @@ export class UserService {
                 (obj: User) => {
                     this.user = {
                         ...obj,
-                        firstName: atob(obj.firstName),
-                        lastName: atob(obj.lastName),
+                        firstName: obj.firstName,
+                        lastName: obj.lastName,
                         password : 'checked !',
                         token: 'checked !',
                         isAuth: true,
@@ -85,7 +85,7 @@ export class UserService {
     logoutUser() {
         localStorage.clear();
         this.user = {
-            pseudo: "Invité",
+            pseudo: "Connection",
             firstName: "",
             lastName: "",
             password: "",
@@ -106,7 +106,7 @@ export class UserService {
                 (obj: Object) => {
                     console.log(JSON.stringify(obj));
                     this.user = {
-                        pseudo: "Invité",
+                        pseudo: "Connection",
                         firstName: "",
                         lastName: "",
                         password: "",
@@ -133,8 +133,8 @@ export class UserService {
                 (user) => {
                     this.user = {
                         ...user,
-                        firstName: atob(user.firstName),
-                        lastName: atob(user.lastName),
+                        firstName: user.firstName,
+                        lastName: user.lastName,
                         password : 'checked !',
                         token: 'checked !',
                         role: user.role,
@@ -151,10 +151,10 @@ export class UserService {
             );
     };
 
-    modifyUserPass(userId:string, currentPass:string, newPass:string) {
+    modifyUserPass(userId:string, oldPass:string, password:string, pseudo:string) {
         const headers = this.getHeaders();
         this.httpClient
-            .put('http://localhost:3000/user/'+userId, {currentPass, newPass}, { headers: headers })
+            .put('http://localhost:3000/user/'+userId, {oldPass, password, pseudo}, { headers: headers })
             .subscribe(
                 () => { 
                     alert('Votre mot-de-passe à bien été modifié !!!' );

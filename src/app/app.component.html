@@ -1,37 +1,45 @@
-<div class="container-fluid" style="padding: 0%;">
+<div class="container-fluid nopadd">
   <nav class="navbar navbar-expand-lg navbar-inverse" >
-    <div class="container-fluid" style="display: flex;align-items: center;justify-content: space-evenly;flex-wrap: wrap;padding: 0%;">
+    <div class="container-fluid nopadd flexblock">
       <div>
         <img src="../assets/logo_nav_white.png" alt="logo groupomania" width="auto" height="45rem">
       </div>
       <div class="btn-group btn-group-lg" role="group">
         <a routerLinkActive="active" routerLink="/" type="button" class="btn btn-primary" role="button" 
           style="background-color: transparent;border-color: transparent;">HOME</a>
-        <button routerLink ="/profil" type="button" class="btn btn-primary" role="button" 
-                style="background-color: transparent;border-color: transparent;" [disabled]="!user.isAuth">Mon Profil</button>
+        <button routerLink ="/profil" type="button" class="btn btn-primary btn-transparent" role="button" [disabled]="!user.isAuth">Mon Profil</button>
       </div>
       <div>
         <div ngbDropdown #loginDrop="ngbDropdown" class="d-inline-block">
           <button class="btn btn-lg btn-primary navbar-btn" id="dropdownForm1" ngbDropdownToggle>{{ user.pseudo }}</button>
-          <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="list-group" style="background-color: black; left: -100%;margin: 0%;">
+          <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="list-group dropdPanel">
             <form class="px-10" [formGroup]='userForm' (ngSubmit)='onLogin(); userForm.reset()' *ngIf="!user.isAuth">
               <label for="pseudoLogin" class="sr-only">Pseudo</label>
-              <input type="text" class="form-control" id="pseudoLogin" placeholder="Pseudo" formControlName='pseudoLogin'>
+              <input type="text" class="form-control" id="pseudoLogin" placeholder="Pseudo" formControlName='pseudoLogin' 
+                    maxlength="12" minlength="3" aria-required="true">
               <label for="passwordLogin" class="sr-only">Password</label>
-              <input type="password" class="form-control" id="passwordLogin" placeholder="Password" formControlName='passwordLogin'>
-              <button type="submit" class="btn btn-success" style="width: 100%;" *ngIf="!user.isAuth" 
+              <input type="password" class="form-control" id="passwordLogin" placeholder="Password" formControlName='passwordLogin'
+                      aria-required="true">
+              <button type="submit" class="btn btn-success fullWidth" *ngIf="!user.isAuth" 
                       (click)="loginDrop.close()" [disabled]="userForm.invalid">Connection</button>
             </form>
-            <button type="button" class="btn btn-primary" style="width: 100%;" *ngIf="user.isAuth" (click)="onQuit()">Déconnection</button>
-            <a routerLink="/signup" class="btn btn-primary" style="width: 100%;" ngbDropdownItem *ngIf="!user.isAuth">Inscription</a>
+            <button type="button" class="btn btn-primary fullWidth" *ngIf="user.isAuth" (click)="onQuit()">Déconnection</button>
+            <a routerLink="/signup" class="btn btn-primary fullWidth" ngbDropdownItem *ngIf="!user.isAuth">Inscription</a>
           </div>
         </div>
       </div>
     </div>
   </nav>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" style="min-height: 79%;">
   <div class="row">
     <router-outlet></router-outlet>
   </div>
 </div>
+<footer class="footer-dark">
+  <!-- Copyright -->
+  <p>
+    © 2020 Copyright :
+    <a class="footer-link" aria-label="lien vers le Repository Git de Arno67000" href="https://github.com/Arno67000/">arno67000</a>
+  </p>
+</footer>

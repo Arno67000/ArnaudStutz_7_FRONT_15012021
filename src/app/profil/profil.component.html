@@ -16,14 +16,14 @@
                 <p class="text-danger">Tous les champs du formulaire sont obligatoires !!</p>
                 <label for="currentPass">Votre Mot-de-passe actuel : </label>
                 <input type="password" name="currentPass" class="form-control" id="currentPass"
-                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$" formControlName="pass">
+                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$" formControlName="pass" aria-required="true" required>
                 <label for="newPass1">Votre nouveau Mot-de-passe : </label>
                 <input type="password" name="newPass1" class="form-control" id="newPass1"
-                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$" formControlName="newPass1">
+                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$" formControlName="newPass1" aria-required="true" required>
                 <small>Votre mot-de-passe doit avoir entre 8 et 20 caractères, contenir au minimum une majuscule, une minuscule, un chiffre et un caractères spécial.</small>
                 <label for="newPass2">Confirmez votre nouveau Mot-de-passe : </label>
                 <input type="password" name="newPass2" class="form-control" id="newPass2"
-                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$" formControlName="newPass2">
+                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$" formControlName="newPass2" aria-required="true" required>
                 <div class="btn-group flexBlock">
                     <button class="btn btn-success" type="submit" [disabled]="passForm.invalid">Valider</button>
                     <button class="btn btn-danger" type="button" (click)="passForm.reset();passDrop.close()">Annuler</button>
@@ -40,7 +40,7 @@
             <p class="form-text">Etes-vous sur de vouloir supprimer votre compte ?</p>
             <label for="unsubscribePseudo" class="sr-only">Entrez votre pseudo pour la suppression du compte.</label>
             <input type="text" placeholder="Entrez votre pseudo" id="unsubscribePseudo" 
-                formControlName='unsubscribePseudo' required>
+                formControlName='unsubscribePseudo' required aria-required="true">
             <button class="btn btn-danger" [disabled]="unsubscribeForm.invalid" (click)="onDeleteAccount()">SUPPRIMER LE PROFIL !</button>
         </form>
     </div>

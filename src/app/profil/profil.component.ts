@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ProfilComponent implements OnDestroy, OnInit {
 
   user: User = {
-    pseudo: "Invité",
+    pseudo: "Connection",
     firstName: "",
     lastName: "",
     password: "",
@@ -78,11 +78,12 @@ export class ProfilComponent implements OnDestroy, OnInit {
 
   onChangePass() {
     const valid = this.checkingNewPass();
+    const pseudo = this.user.pseudo;
     const userId = this.user.id;
-    const currentPass = this.passForm.value['pass'];
-    const newPass = this.passForm.value['newPass2'];
+    const oldPass = this.passForm.value['pass'];
+    const password = this.passForm.value['newPass2'];
     if (valid && userId) {
-      this.userService.modifyUserPass(userId, currentPass, newPass);
+      this.userService.modifyUserPass(userId, oldPass, password, pseudo);
     } else {
       console.log('Erreur vérification du Mot-de-passe.');
     }

@@ -1,8 +1,5 @@
 .bgc-blk {
-    background-color: black;
-}
-.fullWidth {
-    width: 100%;
+    background-color: #333333;
 }
 .margAuto{
     margin: auto;
@@ -10,13 +7,9 @@
 .margTop {
     margin-top: 5%;
 }
-.nopadd{
-    padding: 0%;
-}
-
 .thumb-title {
     background-color: #32506a;
-    color: #edf1f7;
+    color: rgb(237, 241, 247);
     margin: 1% 0 0 0;
 }
 .flexBlockV {
@@ -29,7 +22,7 @@
     font-style: italic;
     text-decoration: underline;
     &:hover {
-        background-color: #edf1f7;
+        background-color: rgb(237, 241, 247);
         font-size: 1.3rem;
     }
 }
@@ -48,7 +41,7 @@
     }
 }
 .panel-heading {
-    background-color: #080808;
+    background-color: #333333;
     color: white;
     width: 100%;
     margin: 0%;

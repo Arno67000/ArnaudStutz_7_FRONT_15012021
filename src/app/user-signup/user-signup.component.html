@@ -1,4 +1,4 @@
-<div class="col-sm-6">
+<div class="col-sm-6 signinform">
     <h1>Créez votre compte utilisateur : </h1>
     <hr>
     
@@ -6,36 +6,36 @@
         <p class="text-danger">Tous les champs du formulaire sont obligatoires !!</p>
         <div class="form-group">
             <label for="pseudo">Pseudo : </label>
-            <input type="text" id="pseudo" class="form-control" formControlName='pseudo'>
-            <div id="emailHelp" class="form-text"><small>Choisissez un pseudo.</small></div>
+            <input type="text" id="pseudo" class="form-control" formControlName='pseudo'  maxlength="12" minlength="3" aria-required="true" required>
+            <div id="emailHelp" class="form-text"><small>Choisissez un pseudo (de 3 à 12 caractères, uniquement des lettres et chiffres)</small></div>
         </div>
         <div class="form-group">  
             <label for="firstName">Prénom : </label>
-            <input type="text" id="firstName" class="form-control" formControlName='firstName'>
+            <input type="text" id="firstName" class="form-control" formControlName='firstName' maxlength="20" aria-required="true" required>
             <div id="emailHelp" class="form-text"><small>Entrez votre prénom.</small></div>
         </div>  
         <div class="form-group">
             <label for="lastName">Nom :</label>
-            <input type="text" id="lastName" class="form-control" formControlName='lastName'> 
+            <input type="text" id="lastName" class="form-control" formControlName='lastName' maxlength="20" aria-required="true" required> 
             <div id="emailHelp" class="form-text"><small>Entrez votre nom.</small></div>  
         </div>
         <div class="form-group">
             <label for="password">Mot de passe :</label>
-            <input type="password" id="password" class="form-control" formControlName='password'
-                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$">
+            <input type="password" id="password" class="form-control" formControlName='password' minlength="8" maxlength="20"
+                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,20})$" aria-required="true" required>
             <div id="emailHelp" class="form-text">
                 <small>Votre mot-de-passe doit avoir entre 8 et 20 caractères, contenir au minimum une majuscule, une minuscule, un chiffre et un caractères spécial.</small>
             </div>   
         </div>
         <div class="form-group">
-            <input type="checkbox" id="check" name="check" class="form-check-input" required formControlName='checked'>
+            <input type="checkbox" id="check" name="check" class="form-check-input" required formControlName='checked' aria-required="true" required>
             <label for="check" class="form-check-label" style="font-size: 1rem;margin-left: 2.5rem;">J'ai pris connaissance et j'accepte les G.C.U</label>
         </div> 
         <button class="btn btn-primary" type="submit" [disabled]="userForm.invalid">S'inscrire</button>
     </form>
 </div>
-<div class="col-sm-4" style="margin-left: 4.5rem;font-size: medium;">
-    <p>Veuillez prendre connaissance des Conditions Générales d'Utilisation avant de remplir le formulaire d'inscription :</p>
+<div class="col-sm-4 cgu">
+    <p class="text-danger">Veuillez prendre connaissance des Conditions Générales d'Utilisation avant de remplir le formulaire d'inscription :</p>
     <hr>
     <p style="text-decoration:underline">Conditions Générales d'Utilisation :</p>
     <p style="font-size: 1rem;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mattis leo leo, non viverra lorem volutpat vel. Curabitur erat sapien, maximus quis turpis id, mattis consectetur lorem. Nam pretium consequat posuere. Aliquam 
