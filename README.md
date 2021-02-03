@@ -1,4 +1,4 @@
-# Groupomania Front-end
+# GroupomaniaProject Front-end
 
 This project was generated with [Angular CLI] version 11.0.7. (TYPESCRIPT);
 
