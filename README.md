@@ -26,4 +26,4 @@ Navigate to `http://localhost:4200/`
 Click on the `Connection` button and select `Inscription` or navigate to `http://localhost:4200/signup`.
 Fill in the field named `Pseudo :` with the value : `admin`.
 Fill the other fields with chosen values and validate. 
-(the first user named 'admin' gets the role, I choose that solution to avoid any conflict with the Database)
+(the first user named 'admin' gets the role, I choose that solution to avoid any conflict with the Database's models)
