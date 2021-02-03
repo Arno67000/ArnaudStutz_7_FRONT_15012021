@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI] version 11.0.7. (TYPESCRIPT);
 
-You'll need the Back-end (and a MySQL DATABASE) for this application to work.
+You'll need the Back-end (and a MySQL DATABASE) for this app to work.
 Find the Back-end at : https://github.com/Arno67000/ArnaudStutz_7_BACK_15012021/tree/master
 
 ## Installation (nodeJs required)
