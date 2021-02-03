@@ -8,7 +8,7 @@ Find the Back-end at : https://github.com/Arno67000/ArnaudStutz_7_BACK_15012021/
 ## Installation (nodeJs required)
 
 Clone the repository.
-In the created directory, run npm install.
+In the created directory, run `npm install`.
 
 ## Development server
 
