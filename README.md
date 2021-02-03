@@ -5,7 +5,7 @@ This project was generated with [Angular CLI] version 11.0.7. (TYPESCRIPT);
 
 ## Installation (nodeJs required)
 
-Clone de repository.
+Clone the repository.
 In the created directory, run npm install.
 
 ## Development server
