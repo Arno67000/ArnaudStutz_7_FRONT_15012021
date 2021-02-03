@@ -21,9 +21,9 @@ export class WallComponent implements OnInit, OnDestroy {
     pseudo: "Connection",
     firstName: "",
     lastName: "",
-    password: "",
     role: 'guest',
-    isAuth: false
+    isAuth: false,
+    password: '',
   };
 
   postForm: FormGroup;
@@ -80,7 +80,13 @@ export class WallComponent implements OnInit, OnDestroy {
     const formValue = this.postForm.value;
     const tweet: Tweet = {
       content: formValue['postTweet'],
-      user: this.user,
+      user: {
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        pseudo: this.user.pseudo,
+        id: this.user.id,
+        password: 'checked'
+      }
     };
     this.tweetService.postTweet(tweet);  
   };
@@ -99,7 +105,13 @@ export class WallComponent implements OnInit, OnDestroy {
     const tweetUser = this.tweets[i].user;
     const tweet:Tweet = {
       content: "Le contenu de ce message à été supprimé par le modérateur du site pour non-respect des C.G.U .",
-      user: tweetUser
+      user: {
+        pseudo: tweetUser.pseudo,
+        firstName: tweetUser.firstName,
+        lastName: tweetUser.lastName,
+        id: tweetUser.id,
+        password: 'checked'
+      }
     }
     if (tweetId) {
       this.tweetService.modifyTweet(tweetId, tweet);
@@ -113,7 +125,13 @@ export class WallComponent implements OnInit, OnDestroy {
     const tweetId = this.tweets[i].id;
     const tweet:Tweet = {
       content: formValue['changeTweet'],
-      user: this.user,
+      user: {
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        pseudo: this.user.pseudo,
+        id: this.user.id,
+        password: 'checked'
+      }
     }
     if (tweetId) {
       this.tweetService.modifyTweet(tweetId, tweet);

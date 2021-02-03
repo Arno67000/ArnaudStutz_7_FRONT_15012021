@@ -16,7 +16,6 @@ export class ProfilComponent implements OnDestroy, OnInit {
     firstName: "",
     lastName: "",
     password: "",
-    role: "guest",
     isAuth: false
   };
 

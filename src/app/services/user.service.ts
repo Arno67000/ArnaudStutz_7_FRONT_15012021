@@ -45,8 +45,8 @@ export class UserService {
                     this.loginUser(user.pseudo, user.password);
                 },
                 (error: any) => {
-                    if(error.status === 403) {
-                        alert('Pseudo déjà utilisé, veuillez en choisir un autre !!!')
+                    if(error.status === 400) {
+                        alert('Pseudo déjà utilisé, veuillez choisir un autre pseudo.');
                     }
                     console.log(error);
                 }
@@ -77,7 +77,11 @@ export class UserService {
                     this.routeur.navigate(['/home']);
                 },
                 (error: any) => {
-                    alert(JSON.stringify(error.error.message));
+                    if(error.status === 429) {
+                        alert('Trop de tentatives de connections, veuillez réessayer dans 15 min... ')
+                    } else {
+                        alert('Désolé nous avons une erreur innattendue, veuillez réessayer après avoir recharger la page svp');
+                    };           
                 }
             );
     }

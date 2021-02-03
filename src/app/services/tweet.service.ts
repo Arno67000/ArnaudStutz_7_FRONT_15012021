@@ -10,7 +10,7 @@ export class TweetService {
 
     tweetSubject = new Subject<Tweet[]>();
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient) {};
 
     emitTweet() {
         this.tweetSubject.next(this.tweets.slice());
@@ -19,7 +19,7 @@ export class TweetService {
     getHeaders() {
         const token = localStorage.getItem('token');
         return new HttpHeaders().set('Authorization', 'Bearer '+ token);    
-    }
+    };
 
     getAll() {
         const headers = this.getHeaders();
@@ -75,4 +75,4 @@ export class TweetService {
                 (error: any) => { console.log(error) }
             );
     };
-}
+};

@@ -27,40 +27,39 @@ export class AppComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
 
   constructor(private userService: UserService,
-              private formBuilder: FormBuilder,
-              private router: Router) {
+              private formBuilder: FormBuilder) {
+
                 this.userSubscription = this.userService.userSubject.subscribe((user) => {
                   this.user = user;
                 });
                 this.userService.emitUser(); 
+
                 this.userForm = this.formBuilder.group({
                   pseudoLogin: ["", Validators.required],
                   passwordLogin: ["", Validators.required]
                 })
               }
 
-  ngOnInit() {
-    
-       
-  }
+  ngOnInit() {};
+
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
-  }
+  };
 
   onLogin() {
     const formValue = this.userForm.value;
     this.userService.loginUser(formValue['pseudoLogin'], formValue['passwordLogin']);
-  }
+  };
 
   onQuit() {
     this.userService.logoutUser();
-  }
+  };
 
   subscribeUser() {
     this.userSubscription = this.userService.userSubject.subscribe((user) => {
       this.user = user;
     });
     this.userService.emitUser();
-  }
+  };
 
 }

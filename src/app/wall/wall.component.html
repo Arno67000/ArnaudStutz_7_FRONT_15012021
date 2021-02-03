@@ -66,7 +66,8 @@
             (click)="onEditMode(i)">Modifier</button>
             <button type="button" class="btn btn-sm btn-outline" *ngIf="user.role === 'Moderateur' && tweets[i].user.role !== 'Moderateur'" 
                   (click)="onKillTweet(i)">Modérer</button>
-            <button type="button" class="btn btn-sm btn-trash" *ngIf="user.id === tweets[i].user.id" (click)="onDeleteTweet(i)" aria-label="supprimer le message"><i class="fas fa-trash-alt"></i></button>
+            <button type="button" class="btn btn-sm btn-trash" *ngIf="user.id === tweets[i].user.id || user.role === 'Moderateur'" 
+                  (click)="onDeleteTweet(i)" aria-label="supprimer le message"><i class="fas fa-trash-alt"></i></button>
           </div>
         </div>
       </div>

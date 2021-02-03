@@ -14,17 +14,18 @@ export class UserSignupComponent implements OnInit {
 
   constructor(private userService: UserService,
               private formBuilder: FormBuilder) { 
+
                 this.userForm = this.formBuilder.group({
                   pseudo: ["", Validators.required],
                   firstName: ["", Validators.required],
                   lastName: ["", Validators.required],
                   password: ["", Validators.required],
                   checked: ["", Validators.required]
-                })
+                });
+
               }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {};
 
   onSubmitForm() {
     const formValue = this.userForm.value;
@@ -35,6 +36,6 @@ export class UserSignupComponent implements OnInit {
       formValue['password'],
     );
     this.userService.signupUser(newUser);
-  }
+  };
   
 }
