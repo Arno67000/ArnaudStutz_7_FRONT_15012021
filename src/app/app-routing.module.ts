@@ -7,16 +7,16 @@ import { WallComponent } from './wall/wall.component';
 import { AuthGuard } from './services/authGuard.service';
 
 const routes: Routes = [
-  {path:"home", component: WallComponent},
-  {path:"profil", canActivate: [AuthGuard], component: ProfilComponent},
-  {path:"signup", component: UserSignupComponent},
-  {path:"", component: WallComponent},
-  {path:"not-found", component: NotFoundComponent},
-  {path: "**", redirectTo:"/not-found"}
+  { path: 'home', component: WallComponent },
+  { path: 'profil', canActivate: [AuthGuard], component: ProfilComponent },
+  { path: 'signup', component: UserSignupComponent },
+  { path: '', component: WallComponent },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: '/not-found' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
